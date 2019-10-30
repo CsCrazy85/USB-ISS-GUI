@@ -199,6 +199,7 @@ class USBISS_Serial_Interface(wx.Frame):
     def enableControls(self):
         self.outputtext.Enable()
         self.btn_send.Enable()
+        self.inputtext.Enable()
         self.inputHexCheckbox.Enable()
         self.inputtextHEX.Enable()
         
