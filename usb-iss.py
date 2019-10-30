@@ -143,7 +143,7 @@ class USBISS_Serial_Interface(wx.Frame):
         i = 0
         for port in serial.tools.list_ports.comports():
             coms.append(str(port)[0:5])
-            print (coms[i])
+            #print (coms[i])
             i += 1
         return coms
 
@@ -153,7 +153,12 @@ class USBISS_Serial_Interface(wx.Frame):
             self._iss = UsbIss()
             p = self.comboboxCOMport.GetValue()
             self._iss.open(p)
-            self._id = self._iss.read_module_id()
+            try:
+                self._id = self._iss.read_module_id()
+            except UsbIssError as e:
+                wx.MessageBox("Module not identified!","Module not identified!",wx.OK,self)
+                self._id = 99
+            
             if self._id != 7:
                 self.infotext.SetLabel("Error: Module not identified! Port closed.")
                 self._iss.close()
